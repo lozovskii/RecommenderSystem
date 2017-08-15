@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/recommendersystem</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+        <mapping class="com.recommendSystem.model.Song"/>
+        <mapping class="com.recommendSystem.model.User"/>
+        <mapping class="com.recommendSystem.model.Album"/>
+        <mapping class="com.recommendSystem.model.Author"/>
+        <mapping class="com.recommendSystem.model.Genre"/>
+        <mapping class="com.recommendSystem.model.Track"/>
+    </session-factory>
+</hibernate-configuration>
