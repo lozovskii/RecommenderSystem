@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service
@@ -20,10 +21,15 @@ public class TrackServiceImpl extends CountServiceImpl implements TrackService{
         trackRepository.addTrack(track);
     }
 
-//    @Override
-//    public Track fetchTrack(long idUserFk) {
-//        return trackRepository.fetchTrack(idUserFk);
-//    }
+    @Override
+    public Track fetchTrack(long idUserFk) {
+        return trackRepository.fetchTrack(idUserFk);
+    }
+
+    @Override
+    public Track fetchTrackId(long id) {
+        return trackRepository.fetchTrackId(id);
+    }
 
     @Override
     public boolean isExist(Track track) {
@@ -35,28 +41,9 @@ public class TrackServiceImpl extends CountServiceImpl implements TrackService{
         trackRepository.updateTrack(track);
     }
 
-//    @Override
-//    public double mainFormulaForGiveAMarkMu(double eta, double mu, double r) {
-//        return super.mainFormulaForGiveAMarkMu(eta, mu, r);
-//    }
-//
-//    @Override
-//    public double mainFormulaForGiveAMarkMuPlusOne(double mu) {
-//        return super.mainFormulaForGiveAMarkMuPlusOne(mu);
-//    }
-//
-//    @Override
-//    public double timeLearningFormula(int n) {
-//        return super.timeLearningFormula(n);
-//    }
-//
-//    @Override
-//    public double oblivionFormula(double muOld) {
-//        return super.oblivionFormula(muOld);
-//    }
-//
-//    @Override
-//    public double formulaForGiveAMarkUpLow() {
-//        return super.formulaForGiveAMarkUpLow();
-//    }
+    @Override
+    public List getAllTracks() {
+        return trackRepository.getAllTracks();
+    }
+
 }

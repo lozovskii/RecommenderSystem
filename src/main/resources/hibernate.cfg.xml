@@ -12,8 +12,9 @@
         <mapping class="com.recommendSystem.model.Song"/>
         <mapping class="com.recommendSystem.model.User"/>
         <mapping class="com.recommendSystem.model.Album"/>
-        <mapping class="com.recommendSystem.model.Author"/>
+        <mapping class="com.recommendSystem.model.Authors"/>
         <mapping class="com.recommendSystem.model.Genre"/>
         <mapping class="com.recommendSystem.model.Track"/>
+
     </session-factory>
 </hibernate-configuration>

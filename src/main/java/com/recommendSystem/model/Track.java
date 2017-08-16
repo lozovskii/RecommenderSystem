@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="Track")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -49,5 +49,9 @@ public class Track {
 
     @Column(name = "time_learning")
     private Double timeLearning;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "id_user_fk", referencedColumnName = "id", insertable=false, updatable=false)
+    private User user;
 
 }

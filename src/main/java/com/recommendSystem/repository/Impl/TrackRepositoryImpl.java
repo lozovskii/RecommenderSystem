@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class TrackRepositoryImpl extends AbstractRepository implements TrackRepository {
 
@@ -19,12 +21,17 @@ public class TrackRepositoryImpl extends AbstractRepository implements TrackRepo
         persist(track);
     }
 
-//    @Override
-//    public Track fetchTrack(long idUserFk) {
-//        Query query = getSession().createQuery("from Track where idUserFk=:idUserFk");
-//        query.setParameter("idUserFk", idUserFk);
-//        return (Track) query.uniqueResult();
-//    }
+    @Override
+    public Track fetchTrack(long idUserFk) {
+        Query query = getSession().createQuery("from Track where idUserFk=:idUserFk");
+        query.setParameter("idUserFk", idUserFk);
+        return (Track) query.uniqueResult();
+    }
+
+    @Override
+    public Track fetchTrackId(long id) {
+        return (Track) getSession().get(Track.class, id);
+    }
 
     @Override
     public boolean isExist(Track track) {
@@ -46,17 +53,9 @@ public class TrackRepositoryImpl extends AbstractRepository implements TrackRepo
     }
 
     @Override
-    public int getTrackDurationFromUserActiv(long idUserFk) {
-        try{
-//            Query query = getSession().createQuery("from Song where ");
-            return 0;
-        }catch (NullPointerException e){
-            return 0;
-        }
+    public List getAllTracks() {
+        return getSession().createCriteria(Track.class).list();
     }
 
-    @Override
-    public int getTrackStatusFromUserActiv(long idUserFk) {
-        return 0;
-    }
+
 }

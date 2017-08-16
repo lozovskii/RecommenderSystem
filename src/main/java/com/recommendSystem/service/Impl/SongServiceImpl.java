@@ -85,7 +85,7 @@ public class SongServiceImpl implements SongService {
                     case XMLStreamConstants.CHARACTERS:
                         Characters characters = event.asCharacters();
                     if (nImei) {
-                        song.setImei(Long.valueOf(characters.getData()));
+                        song.setImeiFk(Long.valueOf(characters.getData()));
                         nImei = false;
                     }else if (nSong_date) {
                         song.setSongDate(characters.getData());

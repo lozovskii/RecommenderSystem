@@ -1,13 +1,8 @@
 package com.recommendSystem;
 
 import com.recommendSystem.config.AppConfig;
-import com.recommendSystem.constant.ConstantsConservative;
-import com.recommendSystem.model.Song;
-import com.recommendSystem.model.Track;
-import com.recommendSystem.model.User;
-import com.recommendSystem.service.SongService;
-import com.recommendSystem.service.TrackService;
-import com.recommendSystem.service.UserService;
+import com.recommendSystem.model.*;
+import com.recommendSystem.service.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,13 +31,14 @@ public class MainTest {
     @Autowired
     private TrackService trackService;
 
+
     @Test
     public void shouldAddToDBListSongFromXML(){
         String path = "For_Recommendations.xml";
         List<Song> songs = songService.getListSongParseXML(path);
         long trackN = 1;
         for(Song song: songs){
-            User user = new User(song.getImei());
+            User user = new User(song.getImeiFk());
 
             if(!userService.isExist(user)){
                 userService.addUser(user);
@@ -56,8 +52,8 @@ public class MainTest {
             Track track = new Track(userForTrack.getId(), trackN, song.getSongDate(), song.getSongNameArtist(), song.getSongName());
             if(track.getTrackN() == 1) {
 
-                double r = trackService.getR()
-                trackService.mainFormulaForGiveAMarkMu(ConstantsConservative.ETA_ZERO, track.getTrackRewardN(), r);//
+                //double r = trackService.getR()
+//                trackService.mainFormulaForGiveAMarkMu(ConstantsConservative.ETA_ZERO, track.getTrackRewardN(), r);//
             }
             if(trackService.isExist(track)){
                 trackN++;
@@ -69,11 +65,48 @@ public class MainTest {
     }
 
     @Test
+    public void shouldAddEntitySongUser(){
+        String path = "For_Recommendations.xml";
+        List<Song> songs = songService.getListSongParseXML(path);
+        for(Song song: songs){
+            User user = new User(song.getImeiFk());
+
+            if(!userService.isExist(user)){
+                userService.addUser(user);
+                songService.addSong(song);
+            }else{
+                System.out.println("User is exist!");
+                songService.addSong(song);
+            }
+
+        }
+    }
+
+    @Test
+    public void shouldGetAllTracks(){
+
+        List allTracks = trackService.getAllTracks();
+
+        assertThat(allTracks.size(), notNullValue());
+    }
+
+    @Test
+    public void shouldFetchTrack(){
+
+        long testId = 35;
+
+        Track track = trackService.fetchTrackId(testId);
+
+        assertThat(track.getIdUserFk(), equalTo(14L));
+
+    }
+
+    @Test
     public void shouldCheckIsExistUser(){
         String path = "For_Recommendations.xml";
         List<Song> songs = songService.getListSongParseXML(path);
         for(Song song: songs) {
-            User user = new User(song.getImei());
+            User user = new User(song.getImeiFk());
             boolean exist = userService.isExist(user);
             System.out.println(exist);
         }
@@ -81,7 +114,8 @@ public class MainTest {
 
     @Test
     public void shouldFetchUser(){
-        User user1 = userService.fetchUser(1);
+        long testImei = 1;
+        User user1 = userService.fetchUser(testImei);
         System.out.println();
         System.out.println(user1.getImei());
     }
