@@ -12,7 +12,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "users")
+@Table(name = "user")
 public class User implements Serializable{
 
     @GeneratedValue(strategy = GenerationType.AUTO)

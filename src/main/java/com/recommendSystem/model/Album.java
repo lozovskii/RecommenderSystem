@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "albums")
+@Table(name = "album")
 public class Album {
 
     @Id
