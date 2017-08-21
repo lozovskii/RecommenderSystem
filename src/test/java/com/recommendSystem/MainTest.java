@@ -1,8 +1,12 @@
 package com.recommendSystem;
 
 import com.recommendSystem.config.AppConfig;
-import com.recommendSystem.model.*;
-import com.recommendSystem.service.*;
+import com.recommendSystem.model.Song;
+import com.recommendSystem.model.Track;
+import com.recommendSystem.model.User;
+import com.recommendSystem.service.SongService;
+import com.recommendSystem.service.TrackService;
+import com.recommendSystem.service.UserService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +38,7 @@ public class MainTest {
 
     @Test
     public void shouldAddToDBListSongFromXML(){
-        String path = "For_Recommendations.xml";
+        String path = "ForRecommend.xml";
         List<Song> songs = songService.getListSongParseXML(path);
         long trackN = 1;
         for(Song song: songs){
@@ -50,23 +54,27 @@ public class MainTest {
 
             User userForTrack = userService.fetchUser(user.getImei());
             Track track = new Track(userForTrack.getId(), trackN, song.getSongDate(), song.getSongNameArtist(), song.getSongName());
-            if(track.getTrackN() == 1) {
-
-                //double r = trackService.getR()
-//                trackService.mainFormulaForGiveAMarkMu(ConstantsConservative.ETA_ZERO, track.getTrackRewardN(), r);//
-            }
-            if(trackService.isExist(track)){
-                trackN++;
-                System.out.println("Считаем новое значение N!");
-            }else{
+//            if(track.getTrackN() == 1) {
+//
+//
+//                //double r = trackService.getR()
+////                trackService.mainFormulaForGiveAMarkMu(ConstantsConservative.ETA_ZERO, track.getTrackRewardN(), r);//
+//            }
+            if(!trackService.isExist(track)){
+                //System.out.println(track);
                 trackService.addTrack(track);
+            }else{
+                System.out.println("Track exist!");
             }
         }
+
+
+
     }
 
     @Test
     public void shouldAddEntitySongUser(){
-        String path = "For_Recommendations.xml";
+        String path = "ForRecommend.xml";
         List<Song> songs = songService.getListSongParseXML(path);
         for(Song song: songs){
             User user = new User(song.getImeiFk());
@@ -79,6 +87,19 @@ public class MainTest {
                 songService.addSong(song);
             }
 
+        }
+    }
+
+    @Test
+    public void shouldFetchAllSongsOnUserId(){
+        User user = new User();
+        user.setImei(2);
+        List<Song> list = songService.getAllSongs(user);
+
+        System.out.println(list.size());
+
+        for (Song song: list){
+            System.out.println(song);
         }
     }
 

@@ -67,13 +67,13 @@ CREATE TABLE track (
   id                    INT(11) UNIQUE NOT NULL AUTO_INCREMENT,
   id_user_fk            INT(11)        NOT NULL,
   track_date            VARCHAR(45)    NOT NULL,
-  track_name_artist     VARCHAR(45) UNIQUE,
-  track_name            VARCHAR(45) UNIQUE,
+  track_name_artist     VARCHAR(45), #UNIQUE,
+  track_name            VARCHAR(45), #UNIQUE,
   track_n               INT(11)        NOT NULL,
   track_reward_n        DOUBLE(7, 7),
   track_reward_plus_one DOUBLE(7, 7),
   time_learning         DOUBLE(7, 7),
-  PRIMARY KEY (id),
+  PRIMARY KEY (id_user_fk, track_name_artist, track_name),
   FOREIGN KEY (id_user_fk) REFERENCES user (id)
 );
 
@@ -134,3 +134,13 @@ FROM track JOIN user JOIN user_activ
      WHERE track.id_user_fk = user.id
  AND user.imei IN (SELECT imei FROM user_activ) AND track.id_user_fk = 13 AND track.track_name_artist = 'oneArtistTest' AND track.track_name='oneSongTest'
 GROUP BY user.imei;
+
+SELECT *
+  FROM user u JOIN user_activ s ON u.imei = s.imei_fk WHERE s.imei_fk=2;
+
+
+SELECT imei
+  from user WHERE user.id = 2;
+
+insert into track(id_user_fk, track_date, track_name_artist, track_name, track_n, track_reward_n, track_reward_plus_one, time_learning)
+VALUES (1, 20171111, 'Placebo', 'Battle for the sun', 1, NULL , NULL , NULL );

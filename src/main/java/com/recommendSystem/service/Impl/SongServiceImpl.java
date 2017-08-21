@@ -1,6 +1,7 @@
 package com.recommendSystem.service.Impl;
 
 import com.recommendSystem.model.Song;
+import com.recommendSystem.model.User;
 import com.recommendSystem.repository.SongRepository;
 import com.recommendSystem.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,4 +136,9 @@ public class SongServiceImpl implements SongService {
         songRepository.updateSong(song);
     }
 
+
+    @Override
+    public List<Song> getAllSongs(User user) {
+        return songRepository.getAllSongs(user);
+    }
 }

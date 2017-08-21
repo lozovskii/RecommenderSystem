@@ -3,6 +3,7 @@ package com.recommendSystem.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name="Track")
 @Getter
@@ -11,9 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Table(name = "track")
-public class Track {
+public class Track implements Serializable{
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
@@ -30,10 +30,12 @@ public class Track {
     @Column(name = "track_date")
     private String trackDate;
 
+    @Id
     @NonNull
     @Column(name = "track_name_artist")
     private String trackNameArtist;
 
+    @Id
     @NonNull
     @Column(name = "track_name")
     private String trackName;
