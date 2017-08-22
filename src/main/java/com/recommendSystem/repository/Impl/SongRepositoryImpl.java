@@ -4,7 +4,7 @@ import com.recommendSystem.model.Song;
 import com.recommendSystem.model.User;
 import com.recommendSystem.repository.AbstractRepository;
 import com.recommendSystem.repository.SongRepository;
-import org.hibernate.SQLQuery;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,12 +32,8 @@ public class SongRepositoryImpl extends AbstractRepository implements SongReposi
 
     @Override
     public List<Song> getAllSongs(User user) {
-        SQLQuery sqlQuery = getSession().createSQLQuery("SELECT * FROM user u JOIN user_activ s ON u.imei = s.imei_fk WHERE s.imei_fk=:idUser");
-        sqlQuery.addEntity("user_activ", Song.class);
-        sqlQuery.addEntity("user", User.class);
-
-        sqlQuery.setParameter("idUser", user.getImei());
-
-        return (List<Song>)sqlQuery.list();
+        Query query = getSession().createQuery("SELECT s FROM Song s JOIN FETCH s.tuser u WHERE s.imeiFk = :idUser");
+        query.setParameter("idUser", user.getImei());
+        return (List<Song>)query.list();
     }
 }

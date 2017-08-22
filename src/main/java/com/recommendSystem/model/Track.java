@@ -54,6 +54,6 @@ public class Track implements Serializable{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_user_fk", referencedColumnName = "id", insertable=false, updatable=false)
-    private User user;
+    private User tuser;
 
 }

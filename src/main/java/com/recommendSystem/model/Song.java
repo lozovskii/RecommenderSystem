@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "user_activ")
 public class Song {
 
@@ -57,6 +56,21 @@ public class Song {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "imei_fk", referencedColumnName = "imei", insertable=false, updatable=false)
-    private User user;
+    private User tuser;
 
+    @Override
+    public String toString() {
+        return "Song{" +
+                "songId=" + songId +
+                ", imeiFk=" + imeiFk +
+                ", songDate='" + songDate + '\'' +
+                ", songNameArtist='" + songNameArtist + '\'' +
+                ", songName='" + songName + '\'' +
+                ", songNameAlbum='" + songNameAlbum + '\'' +
+                ", songNameGenre='" + songNameGenre + '\'' +
+                ", songNameAuthor='" + songNameAuthor + '\'' +
+                ", songDuration=" + songDuration +
+                ", songStatus=" + songStatus +
+                '}';
+    }
 }

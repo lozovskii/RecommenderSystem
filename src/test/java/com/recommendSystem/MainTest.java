@@ -68,8 +68,6 @@ public class MainTest {
             }
         }
 
-
-
     }
 
     @Test
@@ -95,9 +93,6 @@ public class MainTest {
         User user = new User();
         user.setImei(2);
         List<Song> list = songService.getAllSongs(user);
-
-        System.out.println(list.size());
-
         for (Song song: list){
             System.out.println(song);
         }

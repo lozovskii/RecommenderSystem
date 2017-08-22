@@ -11,8 +11,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
-@ToString
-@Table(name = "user")
+@Table(name = "tuser")
 public class User implements Serializable{
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +23,17 @@ public class User implements Serializable{
     @Column(name = "imei")
     private long imei;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tuser")
     private Set<Song> songs;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tuser")
     private Set<Track> tracks;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", imei=" + imei +
+                '}';
+    }
 }
