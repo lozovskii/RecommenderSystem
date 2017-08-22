@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "track")
 public class Track implements Serializable{
 
@@ -56,4 +55,18 @@ public class Track implements Serializable{
     @JoinColumn(name = "id_user_fk", referencedColumnName = "id", insertable=false, updatable=false)
     private User tuser;
 
+    @Override
+    public String toString() {
+        return "Track{" +
+                "id=" + id +
+                ", idUserFk=" + idUserFk +
+                ", trackN=" + trackN +
+                ", trackDate='" + trackDate + '\'' +
+                ", trackNameArtist='" + trackNameArtist + '\'' +
+                ", trackName='" + trackName + '\'' +
+                ", trackRewardN=" + trackRewardN +
+                ", trackRewardPlusOne=" + trackRewardPlusOne +
+                ", timeLearning=" + timeLearning +
+                '}';
+    }
 }
